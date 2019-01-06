@@ -1,0 +1,37 @@
+An Employee can login (DB)
+
+An Employee can view the Employee Homepage
+
+An Employee can logout
+
+An Employee can submit a reimbursement request (DB)
+
+An Employee can upload an image of his/her receipt as part of the reimbursement request (DB)
+
+An Employee can view their pending reimbursement requests (DB)
+
+An Employee can view their resolved reimbursement requests (DB)
+
+An Employee can view their information (DB)
+
+An Employee can update their information (DB)
+
+An Employee receives an email when one of their reimbursement requests is resolved (optional) (DB)
+
+A Manager can login (DB)
+
+A Manager can view the Manager Homepage
+
+A Manager can logout
+
+A Manager can approve/deny pending reimbursement requests (DB)
+
+A Manager can view all pending requests from all employees (DB)
+
+A Manager can view images of the receipts from reimbursement requests (DB)
+
+A Manager can view all resolved requests from all employees and see which manager resolved it (DB)
+
+A Manager can view all Employees (DB)
+
+A Manager can view reimbursement requests from a single Employee (DB)
