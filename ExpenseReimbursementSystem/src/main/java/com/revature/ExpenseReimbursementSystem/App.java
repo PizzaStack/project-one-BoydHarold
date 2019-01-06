@@ -8,7 +8,7 @@ public class App
     {
     	ConnectionHelper ch = new ConnectionHelper();
     	ch.establishConnection();
-    	
+
     	ch.closeConnection();
     }
 }
