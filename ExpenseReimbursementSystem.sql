@@ -15,6 +15,13 @@ CREATE TABLE Employee
 	Status smallint NOT NULL
 );
 
+INSERT INTO Employee (FirstName, LastName, EmailAddress, Address, Status)
+VALUES ('Dwight','Schrute','Dwight.Schrute@dundermifflin.com','123 Wallaby Ln',1),
+('Jim','Halpert','Jim.Halpert@dundermifflin.com','456 Zoo Ave',1),
+('Pam','Beesly','Pam.Beesly@dundermifflin.com','456 Zoo Ave',1),
+('Kevin','Malone','Kevin.Malone@dundermifflin.com','333 W 3rd St',1);
+
+
 CREATE TABLE Manager
 (
 	ManagerID SERIAL PRIMARY KEY,
@@ -25,6 +32,9 @@ CREATE TABLE Manager
 	Status smallint NOT NULL
 );
 
+INSERT INTO Manager (FirstName, LastName, EmailAddress, Address, Status)
+VALUES ('Michael','Scott','Michael.Scott@dundermifflin.com','736 Good Pl',1);
+
 CREATE TABLE EmployeeUsers
 (
 	UserID SERIAL PRIMARY KEY,
@@ -34,6 +44,12 @@ CREATE TABLE EmployeeUsers
 	Status smallint NOT NULL
 );
 
+INSERT INTO EmployeeUsers (EmployeeID, Username, Password, Status)
+VALUES (1,'schruted','ilovebeets',1),
+(2,'halpertj','athlead',1),
+(3,'beesly','iloveart',1),
+(4,'malonek','snickers',1);
+
 CREATE TABLE ManagerUsers
 (
 	UserID SERIAL PRIMARY KEY,
@@ -42,6 +58,9 @@ CREATE TABLE ManagerUsers
 	Password varchar(50) NOT NULL,
 	Status smallint NOT NULL
 );
+
+INSERT INTO ManagerUsers (ManagerID, Username, Password, Status)
+VALUES (1,'scottm','thatswhatshesaid',1);
 
 CREATE TABLE Reimbursement
 (
