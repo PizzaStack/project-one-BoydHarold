@@ -16,25 +16,38 @@ public class ConnectionHelper {
 	private String password;
 	private String url;
 	
+
 	public void establishConnection() {
-		getConnectionInfo();
 		try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+
+        }
+		
+		try {
+			if(connection == null) {
+				getConnectionInfo();
 			connection = DriverManager.getConnection(url, username, password);
+			}
 		} catch(SQLException e) {
-			
+			System.out.println(e);
 		}
 	}
 	
 	public void closeConnection() {
 		try {
+			if(connection != null) {
 			connection.close();
+			connection = null;
+			}
 		} catch (SQLException e) {
 			
 		}
 	}
 	
-	public void getConnectionInfo(){
-		File connectionFile = new File("JDBCConnectionInfo.txt");
+	private void getConnectionInfo(){
+		
+		File connectionFile = new File("C:\\Users\\boydt\\Desktop\\Project One\\project-one-BoydHarold\\ExpenseReimbursementSystem\\JDBCConnectionInfo.txt");
 		
 		try
 		(
@@ -58,9 +71,10 @@ public class ConnectionHelper {
 				count++;
 			}
 		} catch(FileNotFoundException e) {
-			
+			System.out.println(e);
 		} catch(IOException e) {
-			
+			System.out.println(e);
 		}
+		
 	}
 }

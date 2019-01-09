@@ -8,12 +8,12 @@ import com.revature.dao.AuthenticationDao;
 public class Authentication {
 	private int userId;
 	private int referenceId;
+	private String fullName;
 	private String username;
 	private String password;
 	private int status;
 	
-	public Authentication(int referenceId, String username, String password) {
-		this.referenceId = referenceId;
+	public Authentication(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
@@ -58,68 +58,13 @@ public class Authentication {
 		this.status = status;
 	}
 
-	public boolean authenticateEmployee(Authentication authentication) {
-		boolean authenticated = false;
-		boolean usernameAuthenticated = false;
-		boolean passwordAuthenticated = false;
-		int status = 0;
-		String password = "";
-		
-		AuthenticationDao auth = new AuthenticationDao();
-		List<Authentication> employeeAccounts = new ArrayList<>();
-		employeeAccounts = auth.getEmployeeAccounts();
-		
-		for(Authentication employeeAccount : employeeAccounts) {
-
-			if(authentication.getUsername().equals(employeeAccount.getUsername())) {
-				usernameAuthenticated = true;
-				password = employeeAccount.getPassword();
-				
-				if(password.equals(authentication.getPassword())) {
-					passwordAuthenticated = true;
-					status = employeeAccount.getStatus();
-				}
-			}
-		}
-
-		if(usernameAuthenticated == true && passwordAuthenticated == true && status == 1) {
-			authenticated = true;
-		}
-		
-		return authenticated;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public boolean authenticateManager(Authentication authentication) {
-		boolean authenticated = false;
-		boolean usernameAuthenticated = false;
-		boolean passwordAuthenticated = false;
-		int status = 0;
-		String password = "";
-		
-		AuthenticationDao auth = new AuthenticationDao();
-		List<Authentication> managerAccounts = new ArrayList<>();
-		managerAccounts = auth.getManagerAccounts();
-		
-		for(Authentication managerAccount : managerAccounts) {
-
-			if(authentication.getUsername().equals(managerAccount.getUsername())) {
-				usernameAuthenticated = true;
-				password = managerAccount.getPassword();
-				
-				if(password.equals(authentication.getPassword())) {
-					passwordAuthenticated = true;
-					status = managerAccount.getStatus();
-				}
-			}
-		}
-
-		if(usernameAuthenticated == true && passwordAuthenticated == true && status == 1) {
-			authenticated = true;
-		}
-		
-		return authenticated;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	
-	
 
+	
 }

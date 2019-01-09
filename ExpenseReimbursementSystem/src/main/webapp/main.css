@@ -1,0 +1,160 @@
+html {
+    background: white;
+}
+
+body h1 {
+    color: white;
+    padding-bottom: 5px;
+}
+
+#main {
+    text-align: center;
+    color: white;
+    
+}
+
+#head {
+    background-color: black;
+    text-align: center;
+}
+
+#employeeLogin {
+    background: black;
+    text-align: center;
+    height: 200px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#managerLogin {
+    background: black;
+    text-align: center;
+    height: 200px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#employeeLoginButton {
+    width: 50%;
+    height: 30px;
+    background: white;
+    color: black;
+    font-weight: bold;
+}
+
+#managerLoginButton {
+    width: 50%;
+    height: 30px;
+    background: white;
+    color: black;
+    font-weight: bold;
+}
+
+#usernameBox {
+    width: 50%;
+    height: 30px;
+}
+
+#passwordBox {
+    width: 50%;
+    height: 30px;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    background: black;
+    color: white;
+}
+
+#employeeNav {
+    background: black;
+    padding-top: 10px;
+}
+
+#employeeHome {
+    cursor: pointer;
+}
+
+#employeeInformation {
+    cursor: pointer;
+}
+
+#employeeReimbursements {
+    cursor: pointer;
+}
+
+#logout {
+    cursor: pointer;
+}
+
+#managerHome {
+    cursor: pointer;
+}
+
+#managerInformation {
+    cursor: pointer;
+}
+
+#managerReimbursements {
+    cursor: pointer;
+}
+
+#managerNav {
+    background: black;
+    padding-top: 10px;
+}
+
+#loginOptions {
+    background-color: black;
+    padding-bottom: 10px;
+}
+
+#employeeChoice {
+    margin-right: 5px;
+    width: 300px;
+    background-color: white;
+    font-weight: bold;
+}
+
+#managerChoice {
+    margin-left: 5px;
+    width: 300px;
+    background-color: white;
+    font-weight: bold;
+}
+
+#submitReimbursement {
+    margin-top: 5px;
+    background-color: black;
+}
+
+#titleBox {
+    width: 50%;
+    height: 30px;
+}
+
+#descriptionBox {
+    width: 50%;
+    height: 100px;
+}
+
+#amountBox {
+    width: 50%;
+    height: 30px;
+}
+
+#reimbursementImage {
+    width: 50%;
+    height: 30px;
+}
+
+#submitRequest {
+    width: 50%;
+    height: 30px;
+    margin-bottom: 10px;
+    background-color: white;
+    font-weight: bold;
+}

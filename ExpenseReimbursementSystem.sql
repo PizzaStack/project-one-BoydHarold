@@ -47,7 +47,7 @@ CREATE TABLE EmployeeUsers
 INSERT INTO EmployeeUsers (EmployeeID, Username, Password, Status)
 VALUES (1,'schruted','ilovebeets',1),
 (2,'halpertj','athlead',1),
-(3,'beesly','iloveart',1),
+(3,'beeslyp','iloveart',1),
 (4,'malonek','snickers',1);
 
 CREATE TABLE ManagerUsers

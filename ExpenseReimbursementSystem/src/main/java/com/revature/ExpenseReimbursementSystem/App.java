@@ -6,9 +6,6 @@ public class App
 {
     public static void main( String[] args )
     {
-    	ConnectionHelper ch = new ConnectionHelper();
-    	ch.establishConnection();
-
-    	ch.closeConnection();
+    	
     }
 }
