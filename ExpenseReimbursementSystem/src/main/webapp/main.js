@@ -7,6 +7,7 @@ var employeeAddress = "";
 login();
 
 function login(){
+
     document.getElementById("main").innerHTML = `
     <div id="loginOptions">
         <h2>Choose your login type:</h2>
@@ -183,7 +184,7 @@ function employeeManageReimbursements(){
         </div>
     </nav>
     <div id="submitReimbursement">
-        <form>
+        <form id="reimbursementForm" enctype="multipart/form-data">
         <h2>
         Submit Request:
         </h2>
@@ -194,7 +195,7 @@ function employeeManageReimbursements(){
         Amount:<br>
         <input id="amountBox" type="number" min="0.01" step="0.01" max="10000" name="amount" required><br>   
         <br>
-        <input id="reimbursementImage" type="file" accept=".png,.jpg,.jpeg" name="reimbursementImage" required><br>
+        <input id="reimbursementImage" name="file" type="file" accept=".png,.jpg,.jpeg" required><br>
         <br>
         <button type="button" id="submitRequest" onclick="uploadReimbursement(titleBox, description, amount, reimbursementImage)">Submit</button>
         </form>
@@ -345,9 +346,8 @@ function saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newE
 function uploadReimbursement(titleBox, description, amount, image){
     let imageList = image.files;
 
-    let file = imageList[0];
+    let copyForm = new FormData(document.getElementById("reimbursementForm"));
 
-    console.log(file.name);
 
     (function(){
         let xhr = new XMLHttpRequest();
@@ -360,7 +360,10 @@ function uploadReimbursement(titleBox, description, amount, image){
 
         xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement");
 
-        xhr.send(file);
+
+        xhr.send(copyForm);
+
+        
     })();
     
     // if(titleBox.value == ""){

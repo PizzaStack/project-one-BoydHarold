@@ -69,8 +69,8 @@ CREATE TABLE Reimbursement
 	ManagerID int REFERENCES Manager(ManagerID),
 	Status smallint NOT NULL,
 	Title varchar(50) NOT NULL,
-	Description varchar(200) NOT NULL,
+	Description varchar(500) NOT NULL,
 	Amount numeric(100,2) NOT NULL,
 	ReimbursementDate date NOT NULL,
-	Receipt bytea NOT NULL
+	ReceiptLocation varchar(200) NOT NULL
 );
