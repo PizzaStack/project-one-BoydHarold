@@ -1,3 +1,9 @@
+var employeeId = "";
+var employeeFirstName = "";
+var employeeLastName = "";
+var employeeEmailAddress = "";
+var employeeAddress = "";
+
 login();
 
 function login(){
@@ -44,7 +50,7 @@ function loginManager(){
         <input id="usernameBox" type="text" name="username" required autofocus><br>
         Password:<br>
         <input id="passwordBox" type="text" name="password" required autofocus><br><br>
-        <button id="managerLoginButton" onclick="authenticateManager(username, password)">Login</button>
+        <button type="button" id="managerLoginButton" onclick="authenticateManager(username, password)">Login</button>
     </form>
     `
 }
@@ -77,7 +83,14 @@ function authenticateEmployee(username, password){
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if(this.readyState === 4 && this.status === 200){
-                    if(xhr.responseText == "true"){
+
+                    let userInfo = JSON.parse(xhr.responseText);
+                    if(userInfo.auth == "true"){
+                        employeeId = userInfo.id;
+                        employeeFirstName = userInfo.firstname;
+                        employeeLastName = userInfo.lastname;
+                        employeeEmailAddress = userInfo.emailaddress;
+                        employeeAddress = userInfo.address;
                         employeeLogin();
                     } else {
                         alert("Incorrect credentials, try again!");
@@ -114,7 +127,7 @@ function employeeLogin(){
                 <p id="employeeHome" onclick="employeeLogin()">Home</p>
             </div>
             <div class="col-md">
-                <p id="employeeInformation">My Information</p>
+                <p id="employeeInformation" onclick="employeeManageInformation()">My Information</p>
             </div>
             <div class="col-md">
                 <p id="employeeReimbursements" onclick="employeeManageReimbursements()">Manage Reimbursements</p>
@@ -122,7 +135,10 @@ function employeeLogin(){
             <div class="col-md">
                 <p id="logout" onclick="login()">Log Out</p>
             </div>
+        </div>
         </nav>
+        <div id="welcomeEmployee">
+            <h2>Welcome ${employeeFirstName} ${employeeLastName}!</h2>
         </div>
     `
 }
@@ -172,21 +188,86 @@ function employeeManageReimbursements(){
         Submit Request:
         </h2>
         Title:<br>
-        <input id="titleBox" type="text" name="title" required autofocus><br>
+        <input id="titleBox" type="text" name="titleBox" required><br>
         Description:<br>
-        <textarea id="descriptionBox" type="text" name="description" required autofocus></textarea><br>
+        <textarea id="descriptionBox" type="text" name="description" required></textarea><br>
         Amount:<br>
-        <input id="amountBox" type="number" min="0.01" step="0.01" max="10000" name="amount" required autofocus><br>   
+        <input id="amountBox" type="number" min="0.01" step="0.01" max="10000" name="amount" required><br>   
         <br>
-        <input id="reimbursementImage" type="file" name="reimbursementImage" required><br>
+        <input id="reimbursementImage" type="file" accept=".png,.jpg,.jpeg" name="reimbursementImage" required><br>
         <br>
-        <button id="submitRequest" onclick="authenticateEmployee(username, password)">Submit</button>
+        <button type="button" id="submitRequest" onclick="uploadReimbursement(titleBox, description, amount, reimbursementImage)">Submit</button>
         </form>
     </div>
     </div>
     `
 }
 
+function employeeManageInformation(){
+    document.getElementById("main").innerHTML = `
+    <nav id="employeeNav">
+    <div class="row">
+        <div class="col-md">
+            <p id="employeeHome" onclick="employeeLogin()">Home</p>
+        </div>
+        <div class="col-md">
+        <p id="logout" onclick="login()">Log Out</p>
+        </div>
+    </nav>
+    <h2 id="personalInformation">Personal Information:</h2>
+    <form id="employeeInformationForm">
+    <div class="row">
+    <div class="col-md">
+        <p>Employee Id (Cannot Change):</p>
+    </div>
+    <div class="col-md">
+        <input id="employeeId" value="${employeeId}" readonly><br>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <p>First Name:</p>
+        </div>
+        <div class="col-md">
+            <input id="employeeFirstName" name="newEmployeeFirstName" value="${employeeFirstName}"><br>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md">
+        <p>Last Name:</p>
+    </div>
+    <div class="col-md">
+        <input id="employeeLastName" name="newEmployeeLastName" value="${employeeLastName}"><br>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md">
+        <p>Email Address:</p>
+    </div>
+    <div class="col-md">
+        <input id="employeeEmailAddress" name="newEmployeeEmailAddress" value="${employeeEmailAddress}"><br>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md">
+        <p>Address:</p>
+    </div>
+    <div class="col-md">
+        <input id="employeeAddress" name="newEmployeeAddress" value="${employeeAddress}"><br>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md">
+    
+    </div>
+    <div class="col-md">
+        <button id="saveEmployeeInfoChangesButton" type="button" onclick="saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newEmployeeEmailAddress, newEmployeeAddress)">Save Changes</button>
+    </div>
+    </div>
+
+    </form>
+    `
+}
 
 
 
@@ -200,8 +281,95 @@ xhr.onreadystatechange = function() {
     }
 };
 
-xhr.open("GET", "EmployeeServlet");
+xhr.open("GET", "http://localhost:8080/ExpenseReimbursementSystem/employee");
 
 xhr.send();
 
+}
+
+function saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newEmployeeEmailAddress, newEmployeeAddress){
+    if(employeeFirstName === newEmployeeFirstName.value && employeeLastName === newEmployeeLastName.value && employeeEmailAddress === newEmployeeEmailAddress.value && employeeAddress === newEmployeeAddress.value){
+        alert("No changes made to save!");
+    } else if(newEmployeeFirstName.value == "" || newEmployeeLastName.value == "" || newEmployeeEmailAddress == "" || newEmployeeAddress == ""){
+        alert("At least one of the fields is empty, try again!");
+    } else {
+
+        (function() {
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){
+                if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
+                    
+                }
+            };
+
+            xhr.open("POST", "http://localhost:8080/ExpenseReimbursementSystem/singleEmployee", false);
+
+            let employeeInfoChanges = JSON.stringify({"employeeid":employeeId,"firstname":newEmployeeFirstName.value,"lastname":newEmployeeLastName.value,"emailaddress":newEmployeeEmailAddress.value,"address":newEmployeeAddress.value});
+
+            xhr.send(employeeInfoChanges);
+
+        })();
+
+        (function() {
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){
+                if(this.readyState === 4 && this.status === 200){
+                    if(xhr.responseText == "true"){
+                    employeeFirstName = newEmployeeFirstName.value;
+                    employeeLastName = newEmployeeLastName.value;
+                    employeeEmailAddress = newEmployeeEmailAddress.value;
+                    employeeAddress = newEmployeeAddress.value;
+                    alert("Changes saved!");
+                } else {
+                    alert("Oops something went wrong, try again!");
+                }
+            }
+        }
+            
+
+            xhr.open("GET", "http://localhost:8080/ExpenseReimbursementSystem/singleEmployee", false);
+
+            xhr.send();
+
+        })();
+        
+    }
+}
+
+
+
+
+
+function uploadReimbursement(titleBox, description, amount, image){
+    let imageList = image.files;
+
+    let file = imageList[0];
+
+    console.log(file.name);
+
+    (function(){
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function(){
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
+
+            }
+        };
+
+        xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement");
+
+        xhr.send(file);
+    })();
+    
+    // if(titleBox.value == ""){
+    //     alert("Enter in a title for the request!");
+    // } else if(description.value == ""){
+    //     alert("Enter in a description for the request!");
+    // } else if(amount.value == ""){
+    //     alert("Enter in an amount for the request!");
+    // } else if(imageList.length == 0){
+    //     alert("Attach a receipt for the request!");
+    // }
 }

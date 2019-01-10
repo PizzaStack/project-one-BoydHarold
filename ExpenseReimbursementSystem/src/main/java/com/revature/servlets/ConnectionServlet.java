@@ -30,8 +30,11 @@ public class ConnectionServlet extends HttpServlet {
 			if(ConnectionHelper.connection != null) {
 			connectionHelper.closeConnection();
 			System.out.println(line);
+			response.sendRedirect("http://localhost:8080/ExpenseReimbursementSystem/index.html");
 			}
 		}
+		
+		
 		
 
 	}
