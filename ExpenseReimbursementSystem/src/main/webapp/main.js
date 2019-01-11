@@ -4,90 +4,6 @@ var employeeLastName = "";
 var employeeEmailAddress = "";
 var employeeAddress = "";
 
-
-
-
-// function uploadR(callback){
-
-//     let copyForm = new FormData();
-//     copyForm.append("otherkey","TEST");
-// //    let entries = copyForm.entries();
-// //     console.log(entries[0]);
-//     callback(copyForm);
-// }
-
-
-// uploadR(function(copyForm){
-//         let xhr = new XMLHttpRequest();
-
-//         xhr.onreadystatechange = function(){
-//             if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
-
-//             }
-//         };
-
-//         xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement", false);
-
-
-//         xhr.send(copyForm);
-
-        
-//     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 login();
 
 function login(){
@@ -152,7 +68,17 @@ function authenticateEmployee(username, password){
 
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-
+                let userInfo = JSON.parse(xhr.responseText);
+                if(userInfo.auth == "true"){
+                    employeeId = userInfo.id;
+                    employeeFirstName = userInfo.firstname;
+                    employeeLastName = userInfo.lastname;
+                    employeeEmailAddress = userInfo.emailaddress;
+                    employeeAddress = userInfo.address;
+                    employeeLogin();
+                } else {
+                    alert("Incorrect credentials, try again!");
+                }
             }
         }
 
@@ -163,32 +89,6 @@ function authenticateEmployee(username, password){
         xhr.send(credentialArray);
 
      })();
-
-        (function() {   
-            let xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if(this.readyState === 4 && this.status === 200){
-                    let userInfo = JSON.parse(xhr.responseText);
-                    if(userInfo.auth == "true"){
-                        employeeId = userInfo.id;
-                        employeeFirstName = userInfo.firstname;
-                        employeeLastName = userInfo.lastname;
-                        employeeEmailAddress = userInfo.emailaddress;
-                        employeeAddress = userInfo.address;
-                        employeeLogin();
-                    } else {
-                        alert("Incorrect credentials, try again!");
-                    }
-                }
-    
-            };
-
-
-            xhr.open("GET", "http://localhost:8080/ExpenseReimbursementSystem/authentication", false);
-            xhr.send();
-
-        })();
-
 
     }
 }
@@ -223,6 +123,39 @@ function employeeLogin(){
         </nav>
         <div id="welcomeEmployee">
             <h2>Welcome ${employeeFirstName} ${employeeLastName}!</h2>
+            <h3>Pending Reimbursement Requests:</h3>
+            <div id="pendingRequests">
+            <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+            </div>
         </div>
     `
 }
@@ -280,13 +213,13 @@ function employeeManageReimbursements(){
         <br>
         <input id="reimbursementImage" name="file" type="file" accept=".png,.jpg,.jpeg" required><br>
         <br>
-        <button type="button" id="submitRequest" onclick="uploadReimbursementInit()">Submit</button>
+        <button type="button" id="submitRequest" onclick="uploadReimbursementInit(titleBox, description, amount, file)">Submit</button>
         </form>
     </div>
     </div>
     `
 }
-{/* <button type="button" id="submitRequest" onclick="uploadReimbursement()">Submit</button> */}
+
 function employeeManageInformation(){
     document.getElementById("main").innerHTML = `
     <nav id="employeeNav">
@@ -383,7 +316,15 @@ function saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newE
 
             xhr.onreadystatechange = function(){
                 if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
-                    
+                    if(xhr.responseText == "true"){
+                        employeeFirstName = newEmployeeFirstName.value;
+                        employeeLastName = newEmployeeLastName.value;
+                        employeeEmailAddress = newEmployeeEmailAddress.value;
+                        employeeAddress = newEmployeeAddress.value;
+                        alert("Changes saved!");
+                    } else {
+                        alert("Oops something went wrong, try again!");
+                    }
                 }
             };
 
@@ -394,41 +335,33 @@ function saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newE
             xhr.send(employeeInfoChanges);
 
         })();
-
-        (function() {
-            let xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function(){
-                if(this.readyState === 4 && this.status === 200){
-                    if(xhr.responseText == "true"){
-                    employeeFirstName = newEmployeeFirstName.value;
-                    employeeLastName = newEmployeeLastName.value;
-                    employeeEmailAddress = newEmployeeEmailAddress.value;
-                    employeeAddress = newEmployeeAddress.value;
-                    alert("Changes saved!");
-                } else {
-                    alert("Oops something went wrong, try again!");
-                }
-            }
-        }
-            
-
-            xhr.open("GET", "http://localhost:8080/ExpenseReimbursementSystem/singleEmployee", false);
-
-            xhr.send();
-
-        })();
         
     }
 }
 
-function uploadReimbursementInit(){
+function uploadReimbursementInit(titleBox, description, amount, file){
+    let imageList = file.files;
+    if(titleBox.value == ""){
+        alert("Enter in a title for the request!");
+    } else if(description.value == ""){
+        alert("Enter in a description for the request!");
+    } else if(amount.value == ""){
+        alert("Enter in an amount for the request!");
+    } else if(imageList.length == 0){
+        alert("Attach a receipt for the request!");
+    } else {
     uploadReimbursement((copyForm) => {
         let xhr = new XMLHttpRequest();
     
         xhr.onreadystatechange = function(){
             if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
-    
+                if(this.responseText == "true"){
+                    alert("Upload successful!");
+                    document.getElementById("titleBox").value = "";
+                    document.getElementById("descriptionBox").value = "";
+                    document.getElementById("amountBox").value = "";
+                    document.getElementById("reimbursementImage").value = "";
+                }
             }
         };
     
@@ -438,41 +371,13 @@ function uploadReimbursementInit(){
         xhr.send(copyForm);
     });
 }
+}
 
 function uploadReimbursement(callback){
-    // if(titleBox.value == ""){
-    //     alert("Enter in a title for the request!");
-    // } else if(description.value == ""){
-    //     alert("Enter in a description for the request!");
-    // } else if(amount.value == ""){
-    //     alert("Enter in an amount for the request!");
-    // } else if(imageList.length == 0){
-    //     alert("Attach a receipt for the request!");
-    // }
 
     let copyForm = new FormData(document.getElementById("reimbursementForm"));
     copyForm.append("employeeid",employeeId);
 
     callback(copyForm);
-
-
-    (function(){
-        let xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function(){
-            if(this.readyState === 4 && this.status === 200){
-                if(this.responseText == "true"){
-                    alert("Upload successful!");
-                }
-            }
-        };
-
-        xhr.open("GET","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement", false);
-
-
-        xhr.send();
-
-        
-    })();
 
 }

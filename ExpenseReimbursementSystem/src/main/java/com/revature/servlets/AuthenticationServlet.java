@@ -28,15 +28,7 @@ public class AuthenticationServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		PrintWriter output = response.getWriter();
-		JSONObject userInformation = new JSONObject();
-		userInformation.put("auth", auth);
-		userInformation.put("id", id);
-		userInformation.put("firstname", firstName);
-		userInformation.put("lastname", lastName);
-		userInformation.put("emailaddress", emailAddress);
-		userInformation.put("address", address);
-		output.print(userInformation);
+		
 	}
 	
 	@Override
@@ -79,6 +71,16 @@ public class AuthenticationServlet extends HttpServlet {
 			List<String> managerInformation = authenticationService.authenticateManager(authentication);
 			auth = managerInformation.get(1);
 		}
+		
+		PrintWriter output = response.getWriter();
+		JSONObject userInformation = new JSONObject();
+		userInformation.put("auth", auth);
+		userInformation.put("id", id);
+		userInformation.put("firstname", firstName);
+		userInformation.put("lastname", lastName);
+		userInformation.put("emailaddress", emailAddress);
+		userInformation.put("address", address);
+		output.print(userInformation);
 		
 		
 	}

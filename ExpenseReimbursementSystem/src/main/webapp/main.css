@@ -169,6 +169,10 @@ body h1 {
     color:  black;
 }
 
+#pendingRequests {
+    border: black 5px solid;
+}
+
 #employeeInformationForm {
     padding-top: 10px;
     background: black;

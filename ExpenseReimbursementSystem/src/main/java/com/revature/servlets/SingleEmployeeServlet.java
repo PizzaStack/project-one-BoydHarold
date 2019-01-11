@@ -20,8 +20,6 @@ public class SingleEmployeeServlet extends HttpServlet {
 	private String updateStat;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter output = response.getWriter();
-		output.write(updateStat);
 
 	}
 
@@ -40,6 +38,8 @@ public class SingleEmployeeServlet extends HttpServlet {
 		employee.setEmployeeId(json.getInt("employeeid"));
 		boolean updateStatus = employeeService.updateEmployee(employee);
 		updateStat = String.valueOf(updateStatus);
+		PrintWriter output = response.getWriter();
+		output.write(updateStat);
 	}
 
 }

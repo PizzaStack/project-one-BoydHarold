@@ -24,8 +24,7 @@ public class UploadReimbursementServlet extends HttpServlet {
 		
 		protected void doGet(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
-			PrintWriter output = response.getWriter();
-			output.write(String.valueOf(addStatus));
+
 		}
 	
 	
@@ -33,12 +32,12 @@ public class UploadReimbursementServlet extends HttpServlet {
 	            HttpServletResponse response) throws ServletException, IOException {
 
 	    	
-	        String title = request.getParameter("titleBox"); // Retrieves <input type="text" name="description">
+	        String title = request.getParameter("titleBox"); 
 	        String description = request.getParameter("description");
 	        Double amount = Double.parseDouble(request.getParameter("amount"));
 	        int employeeId = Integer.parseInt(request.getParameter("employeeid"));
-	        Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-	        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+	        Part filePart = request.getPart("file");
+	        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 	        InputStream fileContent = filePart.getInputStream();
 
 	        	new File("C:\\Users\\boydt\\Desktop\\Project One\\project-one-BoydHarold\\Reimbursements\\EmployeeId" + employeeId + "Receipts").mkdir();
@@ -58,7 +57,10 @@ public class UploadReimbursementServlet extends HttpServlet {
 	    		
 	    		UploadReimbursementService uploadReimbursementService = new UploadReimbursementService();
 	    		Reimbursement reimbursement = new Reimbursement(employeeId,title,description,amount,"C:\\Users\\boydt\\Desktop\\Project One\\project-one-BoydHarold\\Reimbursements\\EmployeeId" + employeeId + "Receipts\\" + fileName);
-	    		addStatus = uploadReimbursementService.addReimbursement(reimbursement);	    	
+	    		addStatus = uploadReimbursementService.addReimbursement(reimbursement);	
+	    		
+	    		PrintWriter output = response.getWriter();
+	    		output.write(String.valueOf(addStatus));
 	    
 	    }
 	    
