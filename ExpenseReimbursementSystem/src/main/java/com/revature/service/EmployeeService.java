@@ -1,4 +1,4 @@
-package com.revature.dbservice;
+package com.revature.service;
 
 import java.util.List;
 

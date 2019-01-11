@@ -4,6 +4,90 @@ var employeeLastName = "";
 var employeeEmailAddress = "";
 var employeeAddress = "";
 
+
+
+
+// function uploadR(callback){
+
+//     let copyForm = new FormData();
+//     copyForm.append("otherkey","TEST");
+// //    let entries = copyForm.entries();
+// //     console.log(entries[0]);
+//     callback(copyForm);
+// }
+
+
+// uploadR(function(copyForm){
+//         let xhr = new XMLHttpRequest();
+
+//         xhr.onreadystatechange = function(){
+//             if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
+
+//             }
+//         };
+
+//         xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement", false);
+
+
+//         xhr.send(copyForm);
+
+        
+//     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 login();
 
 function login(){
@@ -84,7 +168,6 @@ function authenticateEmployee(username, password){
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if(this.readyState === 4 && this.status === 200){
-
                     let userInfo = JSON.parse(xhr.responseText);
                     if(userInfo.auth == "true"){
                         employeeId = userInfo.id;
@@ -197,13 +280,13 @@ function employeeManageReimbursements(){
         <br>
         <input id="reimbursementImage" name="file" type="file" accept=".png,.jpg,.jpeg" required><br>
         <br>
-        <button type="button" id="submitRequest" onclick="uploadReimbursement(titleBox, description, amount, reimbursementImage)">Submit</button>
+        <button type="button" id="submitRequest" onclick="uploadReimbursementInit()">Submit</button>
         </form>
     </div>
     </div>
     `
 }
-
+{/* <button type="button" id="submitRequest" onclick="uploadReimbursement()">Submit</button> */}
 function employeeManageInformation(){
     document.getElementById("main").innerHTML = `
     <nav id="employeeNav">
@@ -339,33 +422,24 @@ function saveEmployeeInfoChanges(newEmployeeFirstName, newEmployeeLastName, newE
     }
 }
 
-
-
-
-
-function uploadReimbursement(titleBox, description, amount, image){
-    let imageList = image.files;
-
-    let copyForm = new FormData(document.getElementById("reimbursementForm"));
-
-
-    (function(){
+function uploadReimbursementInit(){
+    uploadReimbursement((copyForm) => {
         let xhr = new XMLHttpRequest();
-
+    
         xhr.onreadystatechange = function(){
             if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
-
+    
             }
         };
-
-        xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement");
-
-
-        xhr.send(copyForm);
-
-        
-    })();
     
+        xhr.open("POST","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement", false);
+    
+    
+        xhr.send(copyForm);
+    });
+}
+
+function uploadReimbursement(callback){
     // if(titleBox.value == ""){
     //     alert("Enter in a title for the request!");
     // } else if(description.value == ""){
@@ -375,4 +449,30 @@ function uploadReimbursement(titleBox, description, amount, image){
     // } else if(imageList.length == 0){
     //     alert("Attach a receipt for the request!");
     // }
+
+    let copyForm = new FormData(document.getElementById("reimbursementForm"));
+    copyForm.append("employeeid",employeeId);
+
+    callback(copyForm);
+
+
+    (function(){
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function(){
+            if(this.readyState === 4 && this.status === 200){
+                if(this.responseText == "true"){
+                    alert("Upload successful!");
+                }
+            }
+        };
+
+        xhr.open("GET","http://localhost:8080/ExpenseReimbursementSystem/uploadReimbursement", false);
+
+
+        xhr.send();
+
+        
+    })();
+
 }

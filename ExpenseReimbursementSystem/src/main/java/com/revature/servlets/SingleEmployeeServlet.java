@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.revature.ExpenseReimbursementSystem.Employee;
-import com.revature.dbservice.EmployeeService;
+import com.revature.service.EmployeeService;
 
 
 public class SingleEmployeeServlet extends HttpServlet {

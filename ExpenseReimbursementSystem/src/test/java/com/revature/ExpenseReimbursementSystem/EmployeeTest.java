@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.revature.dbservice.EmployeeService;
 import com.revature.jdbc.ConnectionHelper;
+import com.revature.service.EmployeeService;
 
 public class EmployeeTest {
 	

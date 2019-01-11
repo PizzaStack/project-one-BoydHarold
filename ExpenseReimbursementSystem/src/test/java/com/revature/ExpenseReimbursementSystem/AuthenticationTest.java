@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.revature.dao.EmployeeDao;
 import com.revature.dao.ManagerDao;
-import com.revature.dbservice.AuthenticationService;
 import com.revature.jdbc.ConnectionHelper;
+import com.revature.service.AuthenticationService;
 
 public class AuthenticationTest {
 	@Test

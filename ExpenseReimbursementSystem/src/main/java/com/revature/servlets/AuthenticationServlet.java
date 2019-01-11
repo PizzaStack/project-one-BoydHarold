@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import com.revature.ExpenseReimbursementSystem.Authentication;
 import com.revature.ExpenseReimbursementSystem.Employee;
-import com.revature.dbservice.AuthenticationService;
+import com.revature.service.AuthenticationService;
 
 public class AuthenticationServlet extends HttpServlet {
 
