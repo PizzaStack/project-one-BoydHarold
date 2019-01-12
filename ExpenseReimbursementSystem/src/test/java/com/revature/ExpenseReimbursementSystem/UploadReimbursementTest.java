@@ -17,8 +17,8 @@ public class UploadReimbursementTest {
 		boolean addStatus = uploadReimbursementService.addReimbursement(reimbursement);
 		assertTrue(addStatus);
 		connectionHelper.closeConnection();
-
 	}
+
 }
 
 

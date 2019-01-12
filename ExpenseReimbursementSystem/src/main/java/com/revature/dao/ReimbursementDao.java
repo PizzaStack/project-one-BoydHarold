@@ -3,16 +3,20 @@ package com.revature.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.revature.ExpenseReimbursementSystem.Reimbursement;
 import com.revature.jdbc.ConnectionHelper;
 
 public class ReimbursementDao {
 	private Reimbursement reimbursement;
+	private List<Reimbursement> reimbursements;
+	
 	public ReimbursementDao() {
 		reimbursement = new Reimbursement();
+		reimbursements = new ArrayList<>();
 	}
 
 	public int addReimbursement(Reimbursement reimbursement) {
@@ -70,7 +74,7 @@ public class ReimbursementDao {
 				if(rs.getString(3) != null) {
 					reimbursement.setManagerId(Integer.parseInt(rs.getString(3)));
 				}
-				reimbursement.setStatus(rs.getInt(5));
+				reimbursement.setStatus(rs.getInt(4));
 				reimbursement.setReimbursementDate(rs.getString(8));
 			}
 			
@@ -80,6 +84,31 @@ public class ReimbursementDao {
 		}
 		
 		return reimbursement;
+	}
+
+	public List<Reimbursement> getAllReimbursements() {
+		try {
+			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("SELECT * FROM Reimbursement;");
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				reimbursement = new Reimbursement(rs.getInt(2),
+						rs.getString(5),
+						rs.getString(6),
+						rs.getDouble(7),
+						rs.getString(9));
+				reimbursement.setReimbursementId(rs.getInt(1));
+				reimbursement.setManagerId(rs.getInt(3));
+				reimbursement.setStatus(rs.getInt(4));
+				reimbursement.setReimbursementDate(rs.getString(8));
+				reimbursements.add(reimbursement);
+			}
+			
+		} catch(SQLException e) {
+			
+		}
+		
+		return reimbursements;
 	}
 
 }

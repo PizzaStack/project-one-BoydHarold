@@ -11,6 +11,7 @@ body h1 {
     padding-bottom: 5px;
 }
 
+
 #main {
     text-align: center;
     color: white;
@@ -91,6 +92,10 @@ body h1 {
     cursor: pointer;
 }
 
+#employeeResolvedReimbursementsId {
+    cursor: pointer;
+}
+
 #logout {
     cursor: pointer;
 }
@@ -137,6 +142,11 @@ body h1 {
     background-color: black;
 }
 
+#viewReimbursementById {
+    margin-top: 5px;
+    background-color: black;
+}
+
 #titleBox {
     width: 50%;
     height: 30px;
@@ -169,7 +179,15 @@ body h1 {
     color:  black;
 }
 
+#welcomeManager {
+    color:  black;
+}
+
 #pendingRequests {
+    border: black 5px solid;
+}
+
+#resolvedRequests {
     border: black 5px solid;
 }
 
@@ -183,6 +201,26 @@ body h1 {
 #personalInformation {
     font-weight: bold;
     color:black;
+}
+
+#resolvedReimbursementRequests {
+    font-weight: bold;
+}
+
+#welcomeFirstLast {
+    font-weight: bold;
+}
+
+#pendingReimbursementRequests {
+    font-weight: bold;
+}
+
+#employeeList {
+    font-weight: bold;
+}
+
+.employeeInfo {
+    font-weight: bold;
 }
 
 #employeeId {
@@ -209,4 +247,42 @@ body h1 {
     width: 75%;
     background-color: white;
     font-weight: bold;
+}
+
+.reimbursementButton {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+#viewReimbursementById {
+    padding-bottom: 2px;
+    padding-top: 5px;
+}
+
+#employeeIdReimbursementForm {
+    margin-top: 15px;
+    font-weight: bold;
+    width: 75%;
+}
+
+#employeeIdBox {
+    margin-top: 15px;
+    width: 75%;
+}
+
+#submitRequest2 {
+    margin-top: 15px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    width: 75%;
+}
+
+#managerPendingReimbursementsId {
+    cursor: pointer;
+}
+
+#managerResolvedReimbursementsId {
+    cursor: pointer;
 }

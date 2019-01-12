@@ -15,6 +15,7 @@ public class Manager {
 		this.address = address;
 		this.status = status;
 	}
+
 	public int getManagerId() {
 		return managerId;
 	}

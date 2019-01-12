@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.revature.ExpenseReimbursementSystem.Authentication;
 import com.revature.ExpenseReimbursementSystem.Employee;
+import com.revature.ExpenseReimbursementSystem.Manager;
 import com.revature.service.AuthenticationService;
 
 public class AuthenticationServlet extends HttpServlet {
@@ -30,7 +31,7 @@ public class AuthenticationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		BufferedReader br = request.getReader();
@@ -70,6 +71,14 @@ public class AuthenticationServlet extends HttpServlet {
 		} else if(type.equals("manager")){
 			List<String> managerInformation = authenticationService.authenticateManager(authentication);
 			auth = managerInformation.get(1);
+			if(managerInformation.get(1).equals("true")) {
+				Manager manager = authenticationService.getManagerInformation(username, password);
+				id = manager.getManagerId();
+				firstName = manager.getFirstName();
+				lastName = manager.getLastName();
+				emailAddress = manager.getEmailAddress();
+				address = manager.getAddress();
+			}
 		}
 		
 		PrintWriter output = response.getWriter();

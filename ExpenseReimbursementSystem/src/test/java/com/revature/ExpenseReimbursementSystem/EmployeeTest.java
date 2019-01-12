@@ -8,7 +8,7 @@ import com.revature.jdbc.ConnectionHelper;
 import com.revature.service.EmployeeService;
 
 public class EmployeeTest {
-	
+
 	@Test
 	public void anEmployeeCanUpdateTheirInformationInTheSystem() {
 		ConnectionHelper connectionHelper = new ConnectionHelper();

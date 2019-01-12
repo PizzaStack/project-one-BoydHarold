@@ -18,7 +18,7 @@ public class AuthenticationTest {
 	public void canInstantiate() {
 		Authentication authentication = new Authentication("username","password");
 	}
-
+	
 	@Test
 	public void anEmployeeShouldBeAuthenticated() {
     	ConnectionHelper ch = new ConnectionHelper();
