@@ -16,7 +16,7 @@ public class DownloadReimbursementTest {
 		connectionHelper.establishConnection();
 		DownloadReimbursementService downloadReimbursementService = new DownloadReimbursementService();
 		List<Reimbursement> reimbursementsById = downloadReimbursementService.getPendingReimbursementsByEmployeeId(2);
-		assertEquals(3,reimbursementsById.size());
+		assertEquals(1,reimbursementsById.size());
 		connectionHelper.closeConnection();
 	}
 	
@@ -26,7 +26,17 @@ public class DownloadReimbursementTest {
 		connectionHelper.establishConnection();
 		DownloadReimbursementService downloadReimbursementService = new DownloadReimbursementService();
 		List<Reimbursement> reimbursementsById = downloadReimbursementService.getResolvedReimbursementsByEmployeeId(2);
-		assertEquals(0,reimbursementsById.size());
+		assertEquals(1,reimbursementsById.size());
+		connectionHelper.closeConnection();
+	}
+	
+	@Test
+	public void aListOfAllReimbursementRequestsCanBeProvidedPerEmployee() {
+		ConnectionHelper connectionHelper = new ConnectionHelper();
+		connectionHelper.establishConnection();
+		DownloadReimbursementService downloadReimbursementService = new DownloadReimbursementService();
+		List<Reimbursement> reimbursementsById = downloadReimbursementService.getAllReimbursementsByEmployeeId(2);
+		assertEquals(2,reimbursementsById.size());
 		connectionHelper.closeConnection();
 	}
 }

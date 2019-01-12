@@ -87,6 +87,29 @@ public class DownloadReimbursementServlet extends HttpServlet {
 			}
 
 			output.print(jsonArray);
+		} else if(type.equals("all")) {
+			DownloadReimbursementService downloadReimbursementService = new DownloadReimbursementService();
+			List<Reimbursement> reimbursementsById = downloadReimbursementService
+					.getAllReimbursementsByEmployeeId(employeeId);
+			PrintWriter output = response.getWriter();
+			JSONObject json;
+			JSONArray jsonArray = new JSONArray();
+			for (Reimbursement newReimbursement : reimbursementsById) {
+				json = new JSONObject();
+				json.put("reimbursementid", newReimbursement.getReimbursementId());
+				json.put("employeeid", newReimbursement.getEmployeeId());
+				json.put("managerid", newReimbursement.getManagerId());
+				json.put("status", newReimbursement.getStatus());
+				json.put("title", newReimbursement.getTitle());
+				json.put("description", newReimbursement.getDescription());
+				json.put("amount", newReimbursement.getAmount());
+				json.put("date", newReimbursement.getReimbursementDate());
+				json.put("location", newReimbursement.getReceiptLocation());
+
+				jsonArray.put(json);
+			}
+
+			output.print(jsonArray);
 		}
 
 	}

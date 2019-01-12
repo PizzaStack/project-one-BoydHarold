@@ -34,6 +34,8 @@ CREATE TABLE Manager
 
 INSERT INTO Manager (FirstName, LastName, EmailAddress, Address, Status)
 VALUES ('Michael','Scott','Michael.Scott@dundermifflin.com','736 Good Pl',1);
+INSERT INTO Manager (FirstName, LastName, EmailAddress, Address, Status)
+VALUES ('Jan','Levinson','Jan.Levinson@dundermifflin.com','440 Turkey Rd',1);
 
 CREATE TABLE EmployeeUsers
 (
@@ -61,6 +63,8 @@ CREATE TABLE ManagerUsers
 
 INSERT INTO ManagerUsers (ManagerID, Username, Password, Status)
 VALUES (1,'scottm','thatswhatshesaid',1);
+INSERT INTO ManagerUsers (ManagerID, Username, Password, Status)
+VALUES (2,'levinsonj','astrid',1);
 
 CREATE TABLE Reimbursement
 (

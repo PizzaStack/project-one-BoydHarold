@@ -185,9 +185,27 @@ body h1 {
 
 #pendingRequests {
     border: black 5px solid;
+    color: black;
+}
+
+#pendingRRequests {
+    color: black;
+}
+
+#resolvedRRequests {
+    color: black;
 }
 
 #resolvedRequests {
+    border: black 5px solid;
+}
+#allEmployees {
+    border: black 5px solid;
+}
+
+#reimbursementListById {
+    margin-top: 5px;
+    color: black;
     border: black 5px solid;
 }
 
@@ -254,6 +272,7 @@ body h1 {
     color: white;
     font-weight: bold;
 }
+
 
 #viewReimbursementById {
     padding-bottom: 2px;

@@ -40,5 +40,17 @@ public class DownloadReimbursementService {
 	
 		return reimbursementsById;
 	}
+
+	public List<Reimbursement> getAllReimbursementsByEmployeeId(int id) {
+		reimbursements = reimbursementDao.getAllReimbursements();
+		List<Reimbursement> reimbursementsById = new ArrayList<>();
+		for(Reimbursement reimbursement : reimbursements) {
+			if(reimbursement.getEmployeeId() == id) {
+				reimbursementsById.add(reimbursement);
+			}
+		}
+	
+		return reimbursementsById;
+	}
 	
 }

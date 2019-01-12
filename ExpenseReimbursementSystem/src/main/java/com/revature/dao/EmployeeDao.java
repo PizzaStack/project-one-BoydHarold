@@ -16,7 +16,7 @@ public class EmployeeDao {
 		Employee employee;
 		
 		try {
-			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("SELECT * FROM Employee;");
+			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("SELECT * FROM Employee ORDER BY EmployeeId;");
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.revature.ExpenseReimbursementSystem.Employee;
@@ -39,7 +40,7 @@ public class EmployeeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter output = response.getWriter();
 		employees = employeeService.getEmployees();
-		
+		JSONArray jsonArray = new JSONArray();
 		for(Employee employee : employees) {
 			JSONObject jo = new JSONObject();
 			jo.put("firstname", employee.getFirstName());
@@ -47,10 +48,10 @@ public class EmployeeServlet extends HttpServlet {
 			jo.put("employeeid", employee.getEmployeeId());
 			jo.put("address", employee.getAddress());
 			jo.put("emailaddress", employee.getEmailAddress());
-			output.print(jo);
+			jsonArray.put(jo);
 		}
 		
-
+		output.print(jsonArray);
 	}
 
 }

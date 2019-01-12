@@ -88,7 +88,7 @@ public class ReimbursementDao {
 
 	public List<Reimbursement> getAllReimbursements() {
 		try {
-			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("SELECT * FROM Reimbursement;");
+			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("SELECT * FROM Reimbursement ORDER BY Status, ReimbursementId;");
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -109,6 +109,29 @@ public class ReimbursementDao {
 		}
 		
 		return reimbursements;
+	}
+
+	public void updateReimbursement(Reimbursement reimbursement) {
+		try {
+			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("UPDATE Reimbursement SET ManagerId = ?, Status = ? WHERE ReimbursementId = ?;");
+			ps.setInt(1, reimbursement.getManagerId());
+			ps.setInt(2, reimbursement.getStatus());
+			ps.setInt(3, reimbursement.getReimbursementId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			
+		}
+		
+	}
+
+	public void deleteReimbursement(Reimbursement reimbursement) {
+		try {
+			PreparedStatement ps = ConnectionHelper.connection.prepareStatement("DELETE FROM Reimbursement WHERE ReimbursementId = ?;");
+			ps.setInt(1, reimbursement.getReimbursementId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			
+		}
 	}
 
 }
