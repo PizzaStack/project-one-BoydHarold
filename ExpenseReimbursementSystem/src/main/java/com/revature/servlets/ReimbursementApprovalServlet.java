@@ -44,6 +44,8 @@ public class ReimbursementApprovalServlet extends HttpServlet {
 		
 		PrintWriter output = response.getWriter();
 		output.write(String.valueOf(approvalStatus));
+
+		
 	}
 	
 	

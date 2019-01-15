@@ -47,6 +47,7 @@ function loginEmployee(){
         <button type="button" id="employeeLoginButton" onclick="authenticateEmployee(username, password)">Login</button>
     </form>
     `
+
 }
 
 function loginManager(){
