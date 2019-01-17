@@ -19,8 +19,15 @@ INSERT INTO Employee (FirstName, LastName, EmailAddress, Address, Status)
 VALUES ('Dwight','Schrute','Dwight.Schrute@dundermifflin.com','123 Wallaby Ln',1),
 ('Jim','Halpert','Jim.Halpert@dundermifflin.com','456 Zoo Ave',1),
 ('Pam','Beesly','Pam.Beesly@dundermifflin.com','456 Zoo Ave',1),
-('Kevin','Malone','Kevin.Malone@dundermifflin.com','333 W 3rd St',1);
-
+('Kevin','Malone','Kevin.Malone@dundermifflin.com','333 W 3rd St',1),
+('Angela','Martin','Angela.Martin@dundermifflin.com','583 E 5th Dr',1),
+('Stanley','Hudson','Stanley.Hudson@dundermifflin.com','443 Scranton Ln',1),
+('Meredith','Palmer','Meredith.Palmer@dundermifflin.com','666 Yuri Ct',1),
+('Oscar','Martinez','Oscar.Martinez@dundermifflin.com','190 Virtuoso Ln',1),
+('Creed','Bratton','Creed.Bratton@dundermifflin.com','The Pit by the Query',1),
+('Phyllis','Lapin','Phyllis.Lapin@dundermifflin.com','449 Robert Dr',1),
+('Toby','Flenderson','Toby.Flenderson@dundermifflin.com','302 Nowhere Pl',1),
+('Darryl','Philblin','Darryl.Philblin@dundermifflin.com','542 Warehouse Zn',1);
 
 CREATE TABLE Manager
 (
@@ -48,9 +55,11 @@ CREATE TABLE EmployeeUsers
 
 INSERT INTO EmployeeUsers (EmployeeID, Username, Password, Status)
 VALUES (1,'schruted','ilovebeets',1),
-(2,'halpertj','athlead',1),
+(2,'halpertj','bearsbeetsbattlestargalactica',1),
 (3,'beeslyp','iloveart',1),
-(4,'malonek','snickers',1);
+(4,'malonek','snickers',1),
+(5,'martina','sprinkles',1),
+(6,'palmerm','imnotanalcoholic',1);
 
 CREATE TABLE ManagerUsers
 (
